@@ -9,10 +9,21 @@ Woodpecker, unlike other kinds of software, will not do anything damaging or com
 
 How Woodpecker works:
 * It does an internal scan of the region, gathering box data, iam roles, and security groups.
-* Using that data, it will then simulate brute force attacks on those boxes, as well as port scans, network data, etc.
+* Using that data, it will then use it to attempt brute force attacks on those boxes, as well as port scans, network data, etc.
 * It then will gain access to a box (using provided details) and will begin performing suspicous activity as well as testing what can be accessed if that box was ever able to be breached by a hacker.
 * After this a report will be compiled listing all of Woodpecker's actions, and what it was able to discover internally and externally about the boxes.
 * You should then compare the report to your aws logs to see if your system detected the malicous/unusual activity.
+
+Goals:
+* Are my systems able to withstand the attacks?
+* What data is able to be accessed externally?
+* Will my systems report the external attacks in the logs?
+* If a malicious agent is able to break into a box, what damage can they do?
+* If a malicious agent is able to break into a box, will my systems detect their activity?
+* If a malicious agent is able to break into a box, can I see it in the logs?
+* What vulnerabilities do my security groups and IAM roles have?
+* Can my boxes withstand and report both external and internal attacks?
+* What security groups and IAM roles need changes for their boxes?
 
 Prerequsites:
 * Give woodpecker admin access to the specified region. (specific iam roles will be specified soon)
