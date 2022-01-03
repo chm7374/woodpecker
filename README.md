@@ -1,4 +1,5 @@
 # woodpecker
+![kissclipart-woodpecker-clipart-woodpecker-bird-stock-photograp-1bd8e90eccd4564a](https://user-images.githubusercontent.com/47120650/147968467-2c905451-eabf-4259-986d-c60f09cdb52a.png)
 new idea: Woodpecker
 A test system that tests the security and basic functions of specified/region of ec2 instances and security groups for known vulnerabilities
 Like a woodpecker (there's one outside so i got inspired) it looks for known "bugs" but does so sort-of loudly.
@@ -59,3 +60,10 @@ feeds into red team brute force
 IF red team breaks in, what can they do/do i see it in the logs?
 What damage can they do IF they break in & can I see it in the logs
 No damage actually done to infrastructure (What If? through ssm agent)
+
+Things to investigate:
+* chaosmonkey
+* cloudcustodian
+* tfscan
+* atomic-red-team
+
