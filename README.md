@@ -1,12 +1,22 @@
-# woodpecker
+# Woodpecker
 ![kissclipart-woodpecker-clipart-woodpecker-bird-stock-photograp-1bd8e90eccd4564a](https://user-images.githubusercontent.com/47120650/147968467-2c905451-eabf-4259-986d-c60f09cdb52a.png)
 
 
-A test system that tests the security and basic functions of specified/region of ec2 instances and security groups for known vulnerabilities
-Like a woodpecker (there's one outside so i got inspired) it looks for known "bugs" but does so sort-of loudly.
-Quick one-and-done test of ports, default passwords, and permissions to find holes in the system
-Tests firewalls, public access, port scanning, and so on
-also scans security groups and lists all permissions allowed as well as explaining what they are.
+Woodpecker is a program that tests the security groups, IAM roles, and instances on an AWS region of an account. It tests the basic functions of a specified region of ec2 instances an account has as well as its security groups and IAM roles for vulnerabilities and security flaws.
+Like a woodpecker, it looks for known "bugs" but does so sort-of loudly. Using a mix of blue and red team tactics, this program uses information about your account and simulates an attack from a hacker, as well as the possible damage one could do if they got into a box or role.
+Like woodpeckers, it does so loudly, so it is a good way to see if your security will pick up any attacks or suspicious activity inside and outside of your boxes.
+Woodpecker, unlike other kinds of software, will not do anything damaging or compromising to the systems. Its purpose is to show how and where your systems can be used and vulnerable, not actually exploiting it. 
+
+How Woodpecker works:
+* It does an internal scan of the region, gathering box data, iam roles, and security groups.
+* Using that data, it will then simulate brute force attacks on those boxes, as well as port scans, network data, etc.
+* It then will gain access to a box (using provided details) and will begin performing suspicous activity as well as testing what can be accessed if that box was ever able to be breached by a hacker.
+* After this a report will be compiled listing all of Woodpecker's actions, and what it was able to discover internally and externally about the boxes.
+* You should then compare the report to your aws logs to see if your system detected the malicous/unusual activity.
+
+Prerequsites:
+* Give woodpecker admin access to the specified region. (specific iam roles will be specified soon)
+* Have python installed. (version pending)
 
 Var file:
  * region
