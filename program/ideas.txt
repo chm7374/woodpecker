@@ -1,0 +1,52 @@
+Step 1: Get internal scan information
+command line stuff:
+aws ec2 describe-instances
+aws ec2 describe-security-groups (get from instance info)
+aws iam get-role-policy (get from instance info)
+aws iam get-role (get from instance info)
+
+using this info look at open ports, vpcs, subnets, and so on.
+things to note here (both for report and for program)
+* open ports
+* ingress/egress rules
+* ips
+* security group names
+* open ports and their services
+* general weaknesses
+
+using this data, procceed to step 2: attempt attack.
+* somehow gather network data (responses to queries)
+* test open ports
+* do portscans
+* attempt brute force methods with common logins and passwords
+* scan for all useful info
+* if access gained through this method, record that for step 3.
+
+step 3: internal compromise simulaion
+First the program actually gains access to a box using a provided password
+It then will attempt role escilation as well as seeing what information is
+possible to find.
+* what data can be gathered from inside the box?
+* can it escillate its own privilages?
+* does your log catch any unusual activity?
+* can it lower firewall rules?
+* can it attempt to breach into other boxes with brute force?
+* can it send important files to another remote computer without being noticed or stopped?
+* can it disable logs?
+* what privilages will it have?
+* etc
+
+step 3.1: iam role escillation
+If a hacker managed to get into a (or your) account, what could they
+find/do in the system + would it be noticed?
+* privilage escillation
+* what can be discovered
+* can boxes be destroyed?
+* aws keys
+* secret files
+* iam role editing/viewing
+* what can be made, editied, or viewed?
+
+step 4: report
+all data and vulnerabilities uncovered should be recorded in a readable and
+concise document with time stamps, speciifc actions taken, and summaries.
