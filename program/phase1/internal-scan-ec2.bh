@@ -39,6 +39,7 @@ do
 	for i in $security
 	do
 		echo $i >> $line.txt
+		sh ./internal-scan-sg.bh $i
 	done
 
 	# Get the NetworkInterfaceId (will be moved to sg-specific)

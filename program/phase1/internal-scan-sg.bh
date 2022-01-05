@@ -1,0 +1,36 @@
+#!/bin/bash
+# Uses cmd line argument of the security group's ARN.
+# Saves the SG info for later as variables for the program
+
+#groupid
+aws ec2 describe-security-groups --filters Name=group-id,Values=$1 --query "SecurityGroups[*].[GroupId]" --output text > $1
+
+#groupname
+aws ec2 describe-security-groups --filters Name=group-id,Values=$1 --query "SecurityGroups[*].[GroupName]" --output text >> $1
+
+#ownerid
+aws ec2 describe-security-groups --filters Name=group-id,Values=$1 --query "SecurityGroups[*].[OwnerId]" --output text >> $1
+
+#vpcid
+aws ec2 describe-security-groups --filters Name=group-id,Values=$1 --query "SecurityGroups[*].[VpcId]" --output text >> $1
+
+#IpPermissions
+# - IpProtocol
+aws ec2 describe-security-groups --filters Name=group-id,Values=i-082578a2e871638a2 --query "SecurityGroups[*].IpPermissions[*].[IpProtocol]" --output text
+# - IpRanges.CidrIp
+aws ec2 describe-security-groups --filters Name=group-id,Values=$1 --query "SecurityGroups[*].IpPermissions[*].[UserIdGroupPairs.UserId]" --output text >> $1
+# - ToPort
+aws ec2 describe-security-groups --filters Name=group-id,Values=$1 --query "SecurityGroups[*].IpPermissions[*].[ToPort]" --output text >> $1
+# - FromPort
+aws ec2 describe-security-groups --filters Name=group-id,Values=$1 --query "SecurityGroups[*].IpPermissions[*].[FromPort]" --output text >> $1
+
+#IpPermissionsEgress
+# - IpProtocol
+aws ec2 describe-security-groups --filters Name=group-id,Values=$1 --query "SecurityGroups[*].IpPermissionsEgress[*].[IpProtocol]" --output text >> $1
+# - IpRanges.CidrIp
+aws ec2 describe-security-groups --filters Name=group-id,Values=$1 --query "SecurityGroups[*].IpPermissionsEgress[*].[UserIdGroupPairs.UserId]" --output text >> $1
+# - ToPort
+aws ec2 describe-security-groups --filters Name=group-id,Values=$1 --query "SecurityGroups[*].IpPermissionsEgress[*].[ToPort]" --output text >> $1
+# - FromPort
+aws ec2 describe-security-groups --filters Name=group-id,Values=$1 --query "SecurityGroups[*].IpPermissionsEgress[*].[FromPort]" --output text >> $1
+
