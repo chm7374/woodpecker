@@ -13,3 +13,23 @@ Groups|GroupName (sg)
 MacAddress
 NetworkInterfaceId
 OwnerId (which account made it)
+
+what to take from describe-security-groups:
+groupname
+groupid
+ownerid
+IpPermissionsEgress
+ - IpProtocol
+ - IpRanges.CidrIp
+ - ToPort
+ - FromPort
+ - VpcId
+ - Description
+IpPermissions
+ - IpProtocol
+ - IpRanges.CidrIp
+ - ToPort
+ - FromPort
+ - VpcId
+ - GroupName
+ - Description
