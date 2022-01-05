@@ -1,0 +1,49 @@
+#!/bin/bash
+aws ec2 describe-instances --query 'Reservations[*].Instances[*].{Instance:InstanceId}' --output text > ec2-instance-id.txt
+echo done
+cat ec2-instance-id.txt | while read line
+do
+	echo Scanning $line...
+	# Then for each instance filter their other details out
+	aws ec2 describe-instances --filter Name=instance-id,Values=$line --query Reservations[*].Instances[*].[InstanceId] --output text > $line.txt
+
+	# Describing the security group based on InstanceId ($id is the InstanceId)
+	aws ec2 describe-security-groups --group-ids $(aws ec2 describe-instances --instance-id $line --query "Reservations[].Instances[].SecurityGroups[].GroupId[]" --output text) --query "SecurityGroups[*].GroupId" --output text >> $line.txt
+
+	# Get the KeyName
+	aws ec2 describe-instances --filter Name=instance-id,Values=$line --query Reservations[*].Instances[*].[KeyName] --output text >> $line.txt
+
+	# Get the ImageId
+	aws ec2 describe-instances --filter Name=instance-id,Values=$line --query Reservations[*].Instances[*].[ImageId] --output text >> $line.txt
+
+	# Get the AvailabilityZone
+	aws ec2 describe-instances --filter Name=instance-id,Values=$line --query 'Reservations[*].Instances[*].[Placement.AvailabilityZone]' --output text >> $line.txt
+
+	# Get the Monitoring State
+	aws ec2 describe-instances --filter Name=instance-id,Values=$line --query 'Reservations[*].Instances[*].[Monitoring.State]' --output text >> $line.txt
+
+	# Get the PublicIP
+	aws ec2 describe-instances --filter Name=instance-id,Values=$line --query 'Reservations[*].Instances[*].[PublicIpAddress]' --output text >> $line.txt
+
+	# Get the PublicDnsName
+	aws ec2 describe-instances --filter Name=instance-id,Values=$line --query 'Reservations[*].Instances[*].[PublicDnsName]' --output text >> $line.txt
+
+	# Get the SubnetId
+	aws ec2 describe-instances --filter Name=instance-id,Values=$line --query Reservations[*].Instances[*].[SubnetId] --output text >> $line.txt
+
+	# Get the VpcId
+	aws ec2 describe-instances --filter Name=instance-id,Values=$line --query Reservations[*].Instances[*].[VpcId] --output text >> $line.txt
+
+	# Get the NetworkInterfaceId
+	aws ec2 describe-network-interfaces --filters Name=attachment.instance-id,Values=$line --query 'NetworkInterfaces[*].[NetworkInterfaceId]' --output text >> $line.txt
+
+	# Get the MacAddress
+	aws ec2 describe-network-interfaces --filters Name=attachment.instance-id,Values=$line --query 'NetworkInterfaces[*].[MacAddress]' --output text >> $line.txt
+
+	# Get the OwnerId
+	aws ec2 describe-network-interfaces --filters Name=attachment.instance-id,Values=$line --query 'NetworkInterfaces[*].[OwnerId]' --output text >> $line.txt
+
+done
+
+echo all systems scanned, deleting ec2-instance-id.txt...
+rm -f ec2-instance-id.txt

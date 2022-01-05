@@ -1,0 +1,15 @@
+what to take from describe-instances:
+ImageId
+KeyName
+Monitoring|State
+AvailabilityZone
+PublicDnsName
+PublicIpAddress
+SubnetId
+VpcId
+IamInstanceProfile|Arn
+Groups|GroupId (sg)
+Groups|GroupName (sg)
+MacAddress
+NetworkInterfaceId
+OwnerId (which account made it)
