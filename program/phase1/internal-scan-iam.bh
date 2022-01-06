@@ -1,0 +1,21 @@
+#!/bin/bash
+# Gets the IAM role name and policies, as well as their permissions.
+#make file
+echo $1 > $1
+
+# Get the IAM role name
+role_name=$(aws iam get-instance-profile --instance-profile-name $1 --query 'InstanceProfile.Roles[*].RoleName' --output text)
+echo $role_name >> $1
+
+# Get the IAM policy ARN
+policy_arn=$(aws iam list-attached-role-policies --role-name $role_name --query 'AttachedPolicies[*].PolicyArn' --output text)
+
+# Output all of the policy rules:
+for i in $policy_arn
+do
+    echo $i >> $1
+    # Get the IAM policy version
+    policy_version=$(aws iam get-policy --policy-arn $i --query 'Policy.DefaultVersionId' --output text)
+    aws iam get-policy-version --policy-arn $i --version-id $policy_version >> $1
+done
+
