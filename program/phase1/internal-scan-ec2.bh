@@ -31,9 +31,14 @@ do
 	# Get the VpcId
 	aws ec2 describe-instances --filter Name=instance-id,Values=$line --query Reservations[*].Instances[*].[VpcId] --output text >> $line.txt
 	
-	# Get the IAM role ARN
-	aws ec2 describe-iam-instance-profile-associations --filter Name=instance-id,Values=$line --query 'IamInstanceProfileAssociations[*].[IamInstanceProfile.Arn]' --output text >> $line.txt
-	
+	# Get the IAM role ARN and run the iam role scan
+	arn_iam=$(aws ec2 describe-iam-instance-profile-associations --filter Name=instance-id,Values=i-082578a2e871638a2 --query 'IamInstanceProfileAssociations[*].[IamInstanceProfile.Arn]' --output text | cut -c44-)
+	echo $arn_iam >> $line.txt
+	sh ./internal-scan-iam.bh $arn_iam
+
+	# Get the IAM role ARN (uncut)
+	aws ec2 describe-iam-instance-profile-associations --filter Name=instance-id,Values=i-082578a2e871638a2 --query 'IamInstanceProfileAssociations[*].[IamInstanceProfile.Arn]' --output text >> $line.txt
+
 	# Get the SG ARN
 	security=$(aws ec2 describe-security-groups --group-ids $(aws ec2 describe-instances --instance-id $line --query "Reservations[].Instances[].SecurityGroups[].GroupId[]" --output text) --query "SecurityGroups[*].GroupId" --output text)
 	for i in $security
@@ -41,15 +46,6 @@ do
 		echo $i >> $line.txt
 		sh ./internal-scan-sg.bh $i
 	done
-
-	# Get the NetworkInterfaceId (will be moved to sg-specific)
-	#aws ec2 describe-network-interfaces --filters Name=attachment.instance-id,Values=$line --query 'NetworkInterfaces[*].[NetworkInterfaceId]' --output text >> $line.txt
-
-	# Get the MacAddress (will be moved to sg-specific)
-	#aws ec2 describe-network-interfaces --filters Name=attachment.instance-id,Values=$line --query 'NetworkInterfaces[*].[MacAddress]' --output text >> $line.txt
-
-	# Get the OwnerId (will be moved to sg-specific)
-	#aws ec2 describe-network-interfaces --filters Name=attachment.instance-id,Values=$line --query 'NetworkInterfaces[*].[OwnerId]' --output text >> $line.txt
 
 done
 
