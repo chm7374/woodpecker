@@ -1,0 +1,20 @@
+We'll use python for the main chunk of the rest of the code.
+Using the aws cli calls we will put the main information into python class variables for use in the main program.
+
+class AWSInstance:
+  def __init__(self,instanceId,keyName,imageId,avZone,monState,pubIp,pubDNS,subnetId,vpcId,iamRole,array of Security Groups)
+
+class IamRole
+(roleName, arn, array of policies)
+
+class IamPolicy
+(policyName, policyARN, versionId, array of permissions)
+
+class IamStatement
+(Sid, effect, array of actions, resource)
+
+class Sg
+(groupId, groupname, ownerid, vpcid, array of ip permissions)
+
+class SgIpPermissions
+(ingress or egress, toPort, fromPort, cidr, protocol)
