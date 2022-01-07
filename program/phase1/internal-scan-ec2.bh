@@ -32,7 +32,7 @@ do
 	aws ec2 describe-instances --filter Name=instance-id,Values=$line --query Reservations[*].Instances[*].[VpcId] --output text >> $line.txt
 	
 	# Get the IAM role ARN and run the iam role scan
-	arn_iam=$(aws ec2 describe-iam-instance-profile-associations --filter Name=instance-id,Values=$line --query 'IamInstanceProfileAssociations[*].[IamInstanceProfile.Arn]' --output text | cut -c44-)
+	arn_iam=$(aws ec2 describe-iam-instance-profile-associations --filter Name=instance-id,Values=i-082578a2e871638a2 --query 'IamInstanceProfileAssociations[*].[IamInstanceProfile.Arn]' --output text | cut -c44-)
 	echo $arn_iam >> $line.txt
 	sh ./internal-scan-iam.bh $arn_iam
 
