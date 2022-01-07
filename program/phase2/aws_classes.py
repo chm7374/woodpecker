@@ -119,6 +119,8 @@ class Sg:
         return self.vpcId
     def getIpPermissions(self):
         return self.ipPermissions
+    def __str__(self):
+            return str(self.__class__) + ": " + str(self.__dict__)
 
 
 class SgIpPermissions:
@@ -138,3 +140,7 @@ class SgIpPermissions:
         return self.cidr
     def getProtocol(self):
         return self.protocol
+    def __str__(self):
+            return str(self.__class__) + ": " + str(self.__dict__)
+        
+        

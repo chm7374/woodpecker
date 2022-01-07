@@ -2,6 +2,7 @@ import subprocess as sp
 import os
 from aws_classes import *
 
+
 def makeAWSInstance( instanceId ):
     # Create the class with default params
     ec2 = AWSInstance(instanceId, "null", "null", "null", "null", "null", "null", "null", "null", "null", "null")
