@@ -17,5 +17,6 @@ do
     # Get the IAM policy version
     policy_version=$(aws iam get-policy --policy-arn $i --query 'Policy.DefaultVersionId' --output text)
     aws iam get-policy-version --policy-arn $i --version-id $policy_version >> $1
+    # Lists all effects
 done
 
