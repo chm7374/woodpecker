@@ -45,6 +45,8 @@ class AWSInstance:
             return self.iamRole
     def getSGs(self):
             return self.SGs
+    def __str__(self):
+            return str(self.__class__) + ": " + str(self.__dict__)
 
 class IamRole:
     def __init__( self, roleName, iamArn, iamPolicies):
@@ -59,6 +61,8 @@ class IamRole:
         return self.iamArn
     def getIamPolicies(self):
         return self.iamPolicies
+    def __str__(self):
+        return str(self.__class__) + ": " + str(self.__dict__)
 
 class IamPolicy:
     def __init__( self, policyName, policyArn, versionId, permissions):
@@ -75,22 +79,23 @@ class IamPolicy:
         return self.versionId
     def getPermissions(self):
         return self.permissions
+    def __str__(self):
+        return str(self.__class__) + ": " + str(self.__dict__)
 
 class IamStatement:
-    def __init__( self, sid, effect, actions, resource):
-        self.sid = sid
+    def __init__( self, effect, actions, resource):
         self.effect = effect
         # array of iam rules
         self.actions = actions
         self.resource = resource
-    def getSid(self):
-        return self.sid
     def getEffect(self):
         return self.effect
     def getActions(self):
         return self.actions
     def getResource(self):
         return self.resource
+    def __str__(self):
+        return str(self.__class__) + ": " + str(self.__dict__)
 
 class Sg:
     def __init__( self, groupId, groupName, ownerId, vpcId, ipPermissions ):
