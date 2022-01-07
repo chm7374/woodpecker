@@ -45,6 +45,7 @@ def makeIamRole( instanceProfileRole ):
     print(iam)
     return iam
         
+        
     
 def makeIamPolicy( policyArn ):
     policyVersion = sp.getoutput("aws iam get-policy --policy-arn " + policyArn + " --query 'Policy.DefaultVersionId' --output text")

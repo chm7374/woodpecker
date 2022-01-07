@@ -48,6 +48,7 @@ class AWSInstance:
     def __str__(self):
             return str(self.__class__) + ": " + str(self.__dict__)
 
+
 class IamRole:
     def __init__( self, roleName, iamArn, iamPolicies):
         # IAM role name
@@ -63,6 +64,7 @@ class IamRole:
         return self.iamPolicies
     def __str__(self):
         return str(self.__class__) + ": " + str(self.__dict__)
+
 
 class IamPolicy:
     def __init__( self, policyName, policyArn, versionId, permissions):
@@ -82,6 +84,7 @@ class IamPolicy:
     def __str__(self):
         return str(self.__class__) + ": " + str(self.__dict__)
 
+
 class IamStatement:
     def __init__( self, effect, actions, resource):
         self.effect = effect
@@ -96,6 +99,7 @@ class IamStatement:
         return self.resource
     def __str__(self):
         return str(self.__class__) + ": " + str(self.__dict__)
+
 
 class Sg:
     def __init__( self, groupId, groupName, ownerId, vpcId, ipPermissions ):
@@ -115,6 +119,7 @@ class Sg:
         return self.vpcId
     def getIpPermissions(self):
         return self.ipPermissions
+
 
 class SgIpPermissions:
     def __init__( self, inOrOut, toPort, fromPort, cidr, protocol ):
